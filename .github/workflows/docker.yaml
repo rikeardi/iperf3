@@ -70,4 +70,4 @@ jobs:
     
     - name: Create tar file to download
       if: ${{ github.event_name != 'pull_request' }}
-      run: docker save ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} -o ${{ env.IMAGE_NAME }}.tar
+      run: docker save ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} -o iperf3.tar
