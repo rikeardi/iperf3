@@ -49,6 +49,21 @@ There should be the iPerf app listed and state RUNNING.
 
 Now you can access the container with ```app-hosting connect appid iPerf session``` and run iperf3 client commands from there. Leave the container with ```exit```.
 
+### 4. Protect the container
+
+Running an open iperf server on your network device leaves a door open for intentional and unintentional DDoS attack. So it is highly recommended to use an access list to limit the possible clients using your iperf server.
+
+This is an example of an ACL allowing iperf from the network 192.168.1.0/24 to our iperf server in 192.168.5.21.
+```
+ip access-list extended IPERF-ACL
+ 10 permit tcp 192.168.1.0 0.0.0.255 host 192.168.5.21 eq 5201
+ 20 permit tcp host 192.168.5.21 192.168.1.0 0.0.0.255 eq 5201
+ 30 permit udp 192.168.1.0 0.0.0.255 host 192.168.5.21 eq 5201
+ 40 permit udp host 192.168.5.21 192.168.1.0 0.0.0.255 eq 5201
+ 99999999 deny ip any any log-input
+```
+
+
 ## Credits
 [Michel Labbé's iperf3](https://github.com/michellabbe/docker-iperf3)
 
