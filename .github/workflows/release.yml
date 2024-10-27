@@ -36,7 +36,8 @@ jobs:
     
       - name: Publish the TAR file
         run: |
-          gh release create --clobber alpine-${{ steps.vars.outputs.alpine_version }}_iperf3-${{ steps.vars.outputs.iperf_version }} iperf3.tar
+          gh release delete alpine-${{ steps.vars.outputs.alpine_version }}_iperf3-${{ steps.vars.outputs.iperf_version }} --yes
+          gh release create alpine-${{ steps.vars.outputs.alpine_version }}_iperf3-${{ steps.vars.outputs.iperf_version }} iperf3.tar
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
