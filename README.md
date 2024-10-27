@@ -2,8 +2,6 @@
 
 This is a Docker image for iperf3. Similar to Michel Labbé's iperf3 image, but using hardened alpine from ironpeakservices.
 
-Also ran as Daemon, not filling logs.
-
 ## Credits
 Michel Labbé's iperf3
 https://github.com/michellabbe/docker-iperf3

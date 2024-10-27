@@ -22,4 +22,4 @@ HEALTHCHECK --timeout=3s \
  CMD iperf3 -k 1 -c 127.0.0.1 || exit 1
 
 # iperf3 -s = run in Server mode
-CMD ["-s -D -I /app/iperf3.sock"]
+CMD ["-s -D"]
