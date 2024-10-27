@@ -67,3 +67,7 @@ jobs:
         TAGS: ${{ steps.meta.outputs.tags }}
         DIGEST: ${{ steps.build-and-push.outputs.digest }}
       run: echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
+    
+    - name: Create tar file to download
+      if: ${{ github.event_name != 'pull_request' }}
+      run: docker save ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }} -o ${{ env.IMAGE_NAME }}.tar
