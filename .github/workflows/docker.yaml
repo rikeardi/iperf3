@@ -2,15 +2,13 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
     tags: [ 'latest', 'v*.*.*' ]
-#  pull_request:
-#    branches: [ $default-branch ]
+  pull_request:
+    branches: [ master ]
 
 env:
-  # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
-  # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
