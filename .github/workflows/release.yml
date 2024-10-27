@@ -24,7 +24,7 @@ jobs:
       - id: vars
         run: |
           echo ::set-output name=alpine_version::$(grep '^FROM ghcr.io/ironpeakservices/iron-alpine/iron-alpine' Dockerfile | cut -d ' ' -f 2 | cut -d ':' -f 2)
-          echo ::set-output name=iperf_version::$(grep '^RUN apk add --no-cache iperf3' Dockerfile | cut -d ' ' -f 2 | cut -d '=' -f 2)
+          echo ::set-output name=iperf_version::$(grep '^RUN apk add --no-cache iperf3' Dockerfile | cut -d ' ' -f 5 | cut -d '=' -f 2)
 
       - name: Build an image from Dockerfile
         run: |
