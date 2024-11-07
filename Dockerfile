@@ -4,8 +4,11 @@ FROM ghcr.io/ironpeakservices/iron-alpine/iron-alpine:3.20.3
 
 LABEL maintainer="Risto Lievonen"
 
+ENV IPERF_VERSION=3.17.1-r0
+
 # install iperf3 and switch to non-root user, which is created in the base image
-RUN apk add --no-cache iperf3=3.17.1-r0
+RUN apk add --no-cache iperf3=${IPERF_VERSION} \
+  && /app/post-install.sh
 USER app
 
 # Expose the default iperf3 server ports
