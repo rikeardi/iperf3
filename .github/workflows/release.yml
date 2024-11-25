@@ -26,13 +26,10 @@ jobs:
           echo ::set-output name=alpine_version::$(grep '^FROM ghcr.io/ironpeakservices/iron-alpine/iron-alpine' Dockerfile | cut -d ' ' -f 2 | cut -d ':' -f 2)
           echo ::set-output name=iperf_version::$(grep '^ENV IPERF_VERSION' Dockerfile | cut -d ' ' -f 2 | cut -d '=' -f 2)
 
-      - name: Download ioxclient
+      - name: Download ioxclient and run it
         run: |
           wget https://pubhub.devnetcloud.com/media/iox/docs/artifacts/ioxclient/ioxclient-v1.17.0.0/ioxclient_1.17.0.0_linux_amd64.tar.gz
           tar -zxvf ioxclient_1.17.0.0_linux_amd64.tar.gz ioxclient_1.17.0.0_linux_amd64/ioxclient -C /home/runner
-    
-      - name: Create TAR file
-        run: |
           wget https://raw.githubusercontent.com/${{ env.IMAGE_NAME }}/refs/heads/master/package/package.yaml
           /home/runner/ioxclient_1.17.0.0_linux_amd64/ioxclient docker package ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} . -n iperf3.tar
 
