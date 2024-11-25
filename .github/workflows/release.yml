@@ -29,7 +29,6 @@ jobs:
       - name: Download ioxclient and run it
         run: |
           wget -c https://pubhub.devnetcloud.com/media/iox/docs/artifacts/ioxclient/ioxclient-v1.17.0.0/ioxclient_1.17.0.0_linux_amd64.tar.gz -O - | tar -xz
-          wget https://raw.githubusercontent.com/${{ env.IMAGE_NAME }}/refs/heads/master/package/package.yaml
           wget https://raw.githubusercontent.com/${{ env.IMAGE_NAME }}/refs/heads/master/.ioxclientcfg.yaml -O /home/runner/.ioxclientcfg.yaml
           docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
           ioxclient_1.17.0.0_linux_amd64/ioxclient docker package --skip-schema-validation ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} . -n iperf3.tar
