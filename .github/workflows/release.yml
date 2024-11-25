@@ -29,7 +29,7 @@ jobs:
       - name: Download ioxclient
         run: |
           wget https://pubhub.devnetcloud.com/media/iox/docs/artifacts/ioxclient/ioxclient-v1.17.0.0/ioxclient_1.17.0.0_linux_amd64.tar.gz
-          tar -zxvf ioxclient_1.17.0.0_linux_amd64.tar.gz ioxclient_1.17.0.0_linux_amd64/ioxclient
+          tar -zxvf ioxclient_1.17.0.0_linux_amd64.tar.gz ioxclient_1.17.0.0_linux_amd64/ioxclient -C /home/runner
 
       - name: Download package.yaml
         run: |
@@ -37,7 +37,7 @@ jobs:
     
       - name: Create TAR file
         run: |
-          ../ioxclient_1.17.0.0_linux_amd64/ioxclient docker package ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} . -n iperf3.tar
+          /home/runner/ioxclient_1.17.0.0_linux_amd64/ioxclient docker package ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} . -n iperf3.tar
 
 #      - name: Build an image from Dockerfile
 #        run: |
