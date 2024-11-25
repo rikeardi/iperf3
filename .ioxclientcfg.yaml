@@ -7,9 +7,6 @@ global:
     fogpport: ""
     fogpapiprefix: ""
     fogpurlscheme: ""
-  dockerconfig:
-    server_uri: unix:///var/run/docker.sock
-    api_version: "1.22"
 author:
   name: |
     Rikeardi
