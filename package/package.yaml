@@ -3,9 +3,6 @@ info:
   name: ghcr.io/rikeardi/iperf3
   description: buildkit.dockerfile.v0
   version: alpine-3.20.3_iperf3-3.17.1-r0
-author:
-  name: Rikeardi
-  link: https://github.com/rikeardi
 app:
   cpuarch: x86_64
   env:
