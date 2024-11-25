@@ -30,7 +30,7 @@ jobs:
         run: |
           wget https://pubhub.devnetcloud.com/media/iox/docs/artifacts/ioxclient/ioxclient-v1.17.0.0/ioxclient_1.17.0.0_linux_amd64.tar.gz
           tar -zxvf ioxclient_1.17.0.0_linux_amd64.tar.gz ioxclient_1.17.0.0_linux_amd64/ioxclient
-          ln -s ioxclient_1.17.0.0_linux_amd64/ioxclient /bin/ioxclient
+          ln -s ioxclient_1.17.0.0_linux_amd64/ioxclient /usr/bin/ioxclient
 
       - name: Download package.yaml
         run: |
