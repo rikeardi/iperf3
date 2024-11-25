@@ -26,13 +26,27 @@ jobs:
           echo ::set-output name=alpine_version::$(grep '^FROM ghcr.io/ironpeakservices/iron-alpine/iron-alpine' Dockerfile | cut -d ' ' -f 2 | cut -d ':' -f 2)
           echo ::set-output name=iperf_version::$(grep '^ENV IPERF_VERSION' Dockerfile | cut -d ' ' -f 2 | cut -d '=' -f 2)
 
-      - name: Build an image from Dockerfile
+      - name: Download ioxclient
         run: |
-          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+          wget https://pubhub.devnetcloud.com/media/iox/docs/artifacts/ioxclient/ioxclient-v1.17.0.0/ioxclient_1.17.0.0_linux_amd64.tar.gz
+          tar -zxvf ioxclient_1.17.0.0_linux_amd64.tar.gz ioxclient_1.17.0.0_linux_amd64/ioxclient
+          ln -s ioxclient_1.17.0.0_linux_amd64/ioxclient /bin/ioxclient
+
+      - name: Download package.yaml
+        run: |
+          wget https://raw.githubusercontent.com/${{ env.IMAGE_NAME }}/refs/heads/master/package/package.yaml
     
       - name: Create TAR file
         run: |
-          docker save ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} -o iperf3.tar
+          ioxclient docker package ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} . -n iperf3.tar
+
+#      - name: Build an image from Dockerfile
+#        run: |
+#          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+    
+#      - name: Create TAR file
+#        run: |
+#          docker save ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} -o iperf3.tar
     
       - name: Publish the TAR file
         run: |
