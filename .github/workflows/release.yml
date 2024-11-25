@@ -28,7 +28,7 @@ jobs:
 
       - name: Download ioxclient and run it
         run: |
-          wget https://pubhub.devnetcloud.com/media/iox/docs/artifacts/ioxclient/ioxclient-v1.17.0.0/ioxclient_1.17.0.0_linux_amd64.tar.gz | tar -xz
+          wget -c https://pubhub.devnetcloud.com/media/iox/docs/artifacts/ioxclient/ioxclient-v1.17.0.0/ioxclient_1.17.0.0_linux_amd64.tar.gz -O - | tar -xz
           wget https://raw.githubusercontent.com/${{ env.IMAGE_NAME }}/refs/heads/master/package/package.yaml
           ioxclient_1.17.0.0_linux_amd64/ioxclient docker package ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} . -n iperf3.tar
 
