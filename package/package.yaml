@@ -1,0 +1,27 @@
+descriptor-schema-version: "2.5"
+
+info:
+  name: iperf3 application
+  description: Iperf3 server application for Cisco devices
+  version: "0.0.1"
+  author-link: "https://github.com/rikeardi/iperf3/"
+  author-name: "Risto Lievonen"
+
+app:
+  # Indicate app type (vm, paas, lxc etc.,)
+  cpuarch: "x86_64"
+  type: docker
+
+  resources:
+    profile: custom
+    cpu: "100"
+    disk: "20"
+    memory: "50"
+
+    network:
+     - interface-name: eth0
+
+  # Specify runtime and startup
+  startup:
+    rootfs: rootfs.tar
+    target: ["iperf3 -s"]

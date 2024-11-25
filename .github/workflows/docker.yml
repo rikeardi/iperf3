@@ -27,7 +27,7 @@ jobs:
     - id: vars
       run: |
         echo ::set-output name=alpine_version::$(grep '^FROM ghcr.io/ironpeakservices/iron-alpine/iron-alpine' Dockerfile | cut -d ' ' -f 2 | cut -d ':' -f 2)
-        echo ::set-output name=iperf_version::$(grep '^RUN apk add --no-cache iperf3' Dockerfile | cut -d ' ' -f 5 | cut -d '=' -f 2)
+        echo ::set-output name=iperf_version::$(grep '^ENV IPERF_VERSION' Dockerfile | cut -d ' ' -f 2 | cut -d '=' -f 2)
 
     - name: Install cosign
       if: github.event_name != 'pull_request'
