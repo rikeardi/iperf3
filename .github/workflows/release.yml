@@ -26,6 +26,10 @@ jobs:
           echo ::set-output name=alpine_version::$(grep '^FROM ghcr.io/ironpeakservices/iron-alpine/iron-alpine' Dockerfile | cut -d ' ' -f 2 | cut -d ':' -f 2)
           echo ::set-output name=iperf_version::$(grep '^ENV IPERF_VERSION' Dockerfile | cut -d ' ' -f 2 | cut -d '=' -f 2)
 
+      - name: Build an image from Dockerfile
+        run: |
+          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
+
       - name: Download ioxclient and run it
         run: |
           wget -c https://pubhub.devnetcloud.com/media/iox/docs/artifacts/ioxclient/ioxclient-v1.17.0.0/ioxclient_1.17.0.0_linux_amd64.tar.gz -O - | tar -xz
