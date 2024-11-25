@@ -1,27 +1,34 @@
-descriptor-schema-version: "2.5"
-
+descriptor-schema-version: "2.7"
 info:
-  name: iperf3 application
-  description: Iperf3 server application for Cisco devices
-  version: "0.0.1"
-  author-link: "https://github.com/rikeardi/iperf3/"
-  author-name: "Risto Lievonen"
-
+  name: ghcr.io/rikeardi/iperf3
+  description: buildkit.dockerfile.v0
+  version: alpine-3.20.3_iperf3-3.17.1-r0
 app:
-  # Indicate app type (vm, paas, lxc etc.,)
-  cpuarch: "x86_64"
-  type: docker
-
+  cpuarch: x86_64
+  env:
+    APP_DIR: /app
+    APP_USER: app
+    CONF_DIR: /app/conf
+    DATA_DIR: /app/data
+    IPERF_VERSION: 3.17.1-r0
+    PATH: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
   resources:
-    profile: custom
-    cpu: "100"
-    disk: "20"
-    memory: "50"
-
+    cpu: "400"
+    memory: "128"
     network:
-     - interface-name: eth0
-
-  # Specify runtime and startup
+    - interface-name: eth0
+      ports:
+        tcp:
+        - "5201"
+        udp:
+        - "5201"
+    profile: custom
   startup:
+    args:
+    - -s
     rootfs: rootfs.tar
-    target: ["iperf3 -s"]
+    target:
+    - iperf3
+    user: app
+    workdir: /app
+  type: docker
